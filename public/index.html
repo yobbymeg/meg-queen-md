@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>MEG QUEEN MD — Premium WhatsApp Bot</title>
+<meta name="theme-color" content="#0a0608">
+<meta name="description" content="MEG QUEEN MD — Premium WhatsApp Bot. Powered by YOBBY. Pair your number and unlock 50+ commands.">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0a0608;
+  --bg-2:#160a0d;
+  --panel:rgba(20,8,12,0.72);
+  --panel-2:rgba(28,12,16,0.85);
+  --red:#e11d2a;
+  --red-2:#ff2a3a;
+  --red-glow:rgba(225,29,42,0.45);
+  --red-soft:rgba(225,29,42,0.12);
+  --gold:#f5c542;
+  --txt:#f5e6e8;
+  --muted:#7a6a6d;
+  --line:rgba(225,29,42,0.18);
+  --radius:18px;
+}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;position:relative;-webkit-font-smoothing:antialiased}
+
+/* === Background layers === */
+.bg-grad{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+  radial-gradient(1200px 600px at 50% -10%,rgba(225,29,42,0.18),transparent 60%),
+  radial-gradient(900px 500px at 100% 100%,rgba(245,197,66,0.06),transparent 60%),
+  linear-gradient(180deg,#0a0608 0%,#160a0d 50%,#0a0608 100%)}
+.bg-noise{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.35;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.15 0 0 0 0 0.2 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.scan{position:fixed;inset:0;z-index:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0px,transparent 3px,rgba(0,0,0,0.18) 3px,rgba(0,0,0,0.18) 4px);opacity:0.4}
+.orb{position:fixed;border-radius:50%;filter:blur(80px);z-index:0;pointer-events:none}
+.o1{width:380px;height:380px;top:-120px;left:-100px;background:rgba(225,29,42,0.22);animation:f1 14s ease-in-out infinite}
+.o2{width:300px;height:300px;bottom:-80px;right:-80px;background:rgba(245,197,66,0.10);animation:f2 18s ease-in-out infinite}
+.o3{width:220px;height:220px;top:40%;right:8%;background:rgba(255,42,58,0.08);animation:f3 22s ease-in-out infinite}
+@keyframes f1{0%,100%{transform:translate(0,0)scale(1)}50%{transform:translate(50px,80px)scale(1.1)}}
+@keyframes f2{0%,100%{transform:translate(0,0)scale(1)}50%{transform:translate(-60px,-40px)scale(0.92)}}
+@keyframes f3{0%,100%{transform:translate(0,0)scale(1)}50%{transform:translate(-40px,60px)scale(1.18)}}
+
+.wrap{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:24px 18px 40px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:14px}
+
+/* === HERO BANNER === */
+.hero{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--line);box-shadow:0 18px 60px rgba(0,0,0,0.55),0 0 0 1px rgba(255,255,255,0.02) inset,0 0 80px rgba(225,29,42,0.18) inset}
+.hero-img{display:block;width:100%;height:auto;aspect-ratio:1672/941;object-fit:cover;filter:saturate(1.05) contrast(1.05)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,6,8,0.0) 0%,rgba(10,6,8,0.0) 45%,rgba(10,6,8,0.85) 100%);pointer-events:none}
+.hero-tag{position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;gap:6px;padding:6px 11px;background:rgba(10,6,8,0.7);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:999px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff}
+.hero-tag .live-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;animation:blink 2s infinite}
+.hero-tag .live-dot.off{background:#444;box-shadow:none}
+.hero-meta{position:absolute;bottom:14px;left:16px;right:16px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:46px;line-height:0.92;letter-spacing:1px;color:#fff;text-shadow:0 4px 30px rgba(225,29,42,0.65)}
+.hero-title .red{color:var(--red-2)}
+.hero-sub{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#ffd1d6;margin-top:6px;text-shadow:0 2px 12px #000}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;background:linear-gradient(135deg,rgba(225,29,42,0.95),rgba(180,20,30,0.95));border-radius:999px;font-size:10px;font-weight:800;letter-spacing:1.5px;color:#fff;text-transform:uppercase;box-shadow:0 6px 20px rgba(225,29,42,0.5)}
+
+/* === STATUS RIBBON === */
+.ribbon{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;background:var(--panel);border:1px solid var(--line);border-radius:999px;font-size:11px;font-weight:700;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--txt)}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e;animation:blink 2s infinite}
+.chip .dot.off{background:#555;box-shadow:none;animation:none}
+.chip .dot.warn{background:#f5c542;box-shadow:0 0 10px #f5c542}
+.chip strong{color:#fff}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.45}}
+
+/* === CARDS === */
+.card{background:var(--panel);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 10px 32px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.04);transition:border-color 0.3s,transform 0.2s}
+.card:hover{border-color:rgba(225,29,42,0.32)}
+.card-h{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.card-h .ic{width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:var(--red-soft);border:1px solid var(--line);border-radius:10px;font-size:18px}
+.card-h h3{font-size:14px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;color:#fff}
+.card-h .sub{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;font-weight:700}
+
+/* === INPUT === */
+.lbl{display:block;font-size:10px;font-weight:800;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:2px}
+.inp-row{position:relative}
+.inp-row .flag{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;filter:grayscale(0.2)}
+.inp{width:100%;padding:16px 16px 16px 46px;background:rgba(8,4,6,0.7);border:1px solid var(--line);border-radius:14px;color:#fff;font-size:17px;font-weight:700;font-family:'JetBrains Mono',monospace;outline:none;transition:all 0.25s;letter-spacing:1px}
+.inp:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(225,29,42,0.12),0 0 30px rgba(225,29,42,0.18);background:rgba(20,8,12,0.85)}
+.inp::placeholder{color:#4a3a3d;font-weight:500;letter-spacing:0.5px}
+.ht{font-size:10px;color:var(--muted);margin-top:8px;letter-spacing:0.5px}
+
+/* === BUTTON === */
+.btn{width:100%;padding:16px;border:none;border-radius:14px;background:linear-gradient(135deg,#ff2a3a,#e11d2a 55%,#a3151f);color:#fff;font-size:14px;font-weight:900;cursor:pointer;text-transform:uppercase;letter-spacing:3px;box-shadow:0 8px 26px rgba(225,29,42,0.4),inset 0 1px 0 rgba(255,255,255,0.18);transition:all 0.3s;position:relative;overflow:hidden;font-family:inherit}
+.btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.28),transparent);transition:left 0.55s}
+.btn:hover::before{left:100%}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(225,29,42,0.55)}
+.btn:active{transform:translateY(0)}
+.btn:disabled{opacity:0.45;cursor:not-allowed;transform:none}
+.btn-red{background:linear-gradient(135deg,#7a0e15,#5a0a10);box-shadow:0 4px 16px rgba(122,14,21,0.3)}
+.btn-ghost{background:transparent;border:1px solid var(--line);box-shadow:none;color:var(--txt)}
+.btn-ghost:hover{background:rgba(225,29,42,0.08);transform:none;box-shadow:none}
+
+/* === CODE DISPLAY === */
+.code-box{text-align:center;padding:28px 18px;background:linear-gradient(135deg,rgba(225,29,42,0.14),rgba(225,29,42,0.02));border:2px dashed var(--red);border-radius:16px;margin:14px 0;position:relative;overflow:hidden}
+.code-box::before{content:'';position:absolute;inset:0;background:repeating-conic-gradient(from 0deg,transparent 0deg 5deg,rgba(225,29,42,0.04) 5deg 10deg);animation:spin 30s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.code{font-size:42px;font-weight:900;letter-spacing:6px;color:#fff;font-family:'JetBrains Mono',monospace;text-shadow:0 0 25px rgba(225,29,42,0.75);position:relative}
+.tm{font-size:11px;color:#ffd1d6;font-weight:700;position:relative;letter-spacing:1.5px;text-transform:uppercase}
+
+/* === STEPS === */
+.steps{list-style:none;padding:0;margin:14px 0;counter-reset:s}
+.steps li{padding:8px 0 8px 36px;position:relative;color:#cab0b4;font-size:12px;counter-increment:s;line-height:1.5}
+.steps li::before{content:counter(s);position:absolute;left:0;top:6px;width:24px;height:24px;background:linear-gradient(135deg,#ff2a3a,#a3151f);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;font-family:'JetBrains Mono',monospace;box-shadow:0 4px 12px rgba(225,29,42,0.5)}
+.steps li strong{color:#fff}
+
+/* === STATS === */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{background:rgba(8,4,6,0.7);padding:14px 8px;border-radius:12px;text-align:center;border:1px solid var(--line)}
+.sn{font-size:22px;font-weight:900;color:#fff;font-family:'JetBrains Mono',monospace}
+.sn.red{color:var(--red-2);text-shadow:0 0 12px rgba(225,29,42,0.5)}
+.sl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:2px;font-weight:700}
+
+/* === FEATURES === */
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ft{background:rgba(8,4,6,0.7);padding:13px 6px;border-radius:11px;font-size:10px;text-align:center;border:1px solid var(--line);transition:all 0.25s;color:#cab0b4;font-weight:600}
+.ft:hover{border-color:rgba(225,29,42,0.4);background:rgba(20,8,12,0.85);transform:translateY(-1px)}
+.fti{font-size:22px;display:block;margin-bottom:4px;filter:drop-shadow(0 4px 12px rgba(225,29,42,0.3))}
+
+/* === ERR / SPINNER === */
+.err{background:rgba(225,29,42,0.12);border:1px solid var(--red);color:#ffd1d6;padding:11px 14px;border-radius:11px;font-size:12px;margin-bottom:14px;display:none;font-weight:600}
+.err.show{display:block;animation:shake 0.4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.spin{width:15px;height:15px;border:2px solid rgba(255,255,255,0.2);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;vertical-align:middle;margin-right:6px}
+.copy{width:100%;background:rgba(8,4,6,0.7);border:1px solid var(--line);color:#fff;padding:11px;border-radius:11px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all 0.25s}
+.copy:hover{background:rgba(225,29,42,0.12);border-color:rgba(225,29,42,0.4)}
+
+/* === FOOTER === */
+.foot{text-align:center;color:var(--muted);font-size:10px;margin-top:8px;letter-spacing:1px}
+.foot a{color:var(--red-2);text-decoration:none;font-weight:800}
+.foot .pp{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:2px;margin-bottom:2px}
+.foot .pp .red{color:var(--red-2)}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(80px);background:rgba(20,8,12,0.95);border:1px solid var(--line);color:#fff;padding:11px 18px;border-radius:11px;font-size:12px;font-weight:700;z-index:99;opacity:0;transition:all 0.35s;pointer-events:none;backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:380px){
+  .hero-title{font-size:38px}
+  .code{font-size:34px;letter-spacing:4px}
+}
+</style>
+</head>
+<body>
+<div class="bg-grad"></div>
+<div class="bg-noise"></div>
+<div class="scan"></div>
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+
+<div class="wrap">
+
+  <!-- === HERO BANNER === -->
+  <div class="hero">
+    <img src="/assets/menu-banner.png" alt="MEG QUEEN MD Banner" class="hero-img">
+    <div class="hero-overlay"></div>
+    <div class="hero-tag">
+      <span class="live-dot off" id="liveDot"></span>
+      <span id="liveTxt">Connecting…</span>
+    </div>
+    <div class="hero-meta">
+      <div>
+        <div class="hero-title">MEGH <span class="red">MD</span></div>
+        <div class="hero-sub">⚡ Powered by YOBBY ⚡</div>
+      </div>
+      <span class="hero-badge">👑 v4.3</span>
+    </div>
+  </div>
+
+  <!-- === STATUS RIBBON === -->
+  <div class="ribbon">
+    <span class="chip"><span class="dot off" id="dot"></span><span id="st">…</span></span>
+    <span class="chip">📡 <strong id="sa">0</strong> active</span>
+    <span class="chip">💾 <strong id="st2">0</strong> total paired</span>
+  </div>
+
+  <!-- === ERROR === -->
+  <div class="err" id="er"></div>
+
+  <!-- === FORM CARD === -->
+  <div class="card" id="fc">
+    <div class="card-h">
+      <div class="ic">🔗</div>
+      <div>
+        <h3>Pair WhatsApp</h3>
+        <div class="sub">Get your pairing code</div>
+      </div>
+    </div>
+    <label class="lbl" for="ph">📱 Phone Number</label>
+    <div class="inp-row">
+      <span class="flag">📱</span>
+      <input type="tel" id="ph" class="inp" placeholder="254712345678" inputmode="numeric" autocomplete="off">
+    </div>
+    <p class="ht">With country code. No + or spaces. Example: 254712345678</p>
+    <div style="height:14px"></div>
+    <button class="btn" id="bt" onclick="go()">🔗 Get Pairing Code</button>
+  </div>
+
+  <!-- === CODE CARD === -->
+  <div class="card" id="cc" style="display:none">
+    <div class="card-h">
+      <div class="ic">✅</div>
+      <div>
+        <h3>Code Generated</h3>
+        <div class="sub">Enter in WhatsApp</div>
+      </div>
+    </div>
+    <div class="code-box">
+      <div class="code" id="cd">XXXX</div>
+      <div class="tm" id="tm">Expires in 60s</div>
+    </div>
+    <button class="copy" onclick="cp()">📋 Copy Code</button>
+    <h4 style="margin:16px 0 4px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:800">How to link</h4>
+    <ol class="steps">
+      <li>Open <strong>WhatsApp</strong> on your phone</li>
+      <li>Go to <strong>Settings → Linked Devices → Link a Device</strong></li>
+      <li>Tap <strong>"Link with phone number instead"</strong></li>
+      <li>Enter the code above &amp; confirm</li>
+    </ol>
+  </div>
+
+  <!-- === CONNECTED CARD === -->
+  <div class="card" id="nc" style="display:none">
+    <div class="card-h">
+      <div class="ic">🟢</div>
+      <div>
+        <h3>Bot Connected</h3>
+        <div class="sub">Ready to roll</div>
+      </div>
+    </div>
+    <div style="text-align:center;padding:8px 0 14px">
+      <div id="ni" style="font-size:12px;color:#cab0b4;line-height:1.6"></div>
+    </div>
+    <p style="text-align:center;color:var(--muted);font-size:11px;margin-bottom:14px;letter-spacing:0.5px">
+      Send <code style="background:rgba(225,29,42,0.12);padding:3px 7px;border-radius:5px;color:#ff6b76;font-weight:700;border:1px solid var(--line)">.menu</code> in WhatsApp to see all commands.
+    </p>
+    <button class="btn btn-red" onclick="dc()">🔌 Disconnect</button>
+  </div>
+
+  <!-- === STATS CARD === -->
+  <div class="card">
+    <div class="card-h">
+      <div class="ic">📊</div>
+      <div>
+        <h3>Live Stats</h3>
+        <div class="sub">Real-time</div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="sn red" id="ac2">0</div><div class="sl">Active</div></div>
+      <div class="stat"><div class="sn" id="st3">0</div><div class="sl">Total Paired</div></div>
+    </div>
+  </div>
+
+  <!-- === FEATURES CARD === -->
+  <div class="card">
+    <div class="card-h">
+      <div class="ic">⚡</div>
+      <div>
+        <h3>Features</h3>
+        <div class="sub">What you get</div>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="ft"><span class="fti">🎮</span>50+ Commands</div>
+      <div class="ft"><span class="fti">🚫</span>Anti-Delete</div>
+      <div class="ft"><span class="fti">🔗</span>Anti-Link</div>
+      <div class="ft"><span class="fti">👋</span>Welcome</div>
+      <div class="ft"><span class="fti">🎨</span>Stickers</div>
+      <div class="ft"><span class="fti">🎵</span>Song DL</div>
+      <div class="ft"><span class="fti">📊</span>Group Stats</div>
+      <div class="ft"><span class="fti">📥</span>Downloads</div>
+      <div class="ft"><span class="fti">👥</span>Multi-User</div>
+    </div>
+  </div>
+
+  <!-- === FOOTER === -->
+  <div class="foot">
+    <div class="pp">MEGH <span class="red">MD</span> × YOBBY</div>
+    <p>⚡ Premium WhatsApp Bot · v4.3.0</p>
+    <p style="margin-top:6px"><a href="https://github.com/xtechkin-svg/YOBBY-MD" target="_blank" rel="noopener">GitHub Repo ↗</a></p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(t._tm);
+  t._tm=setTimeout(()=>t.classList.remove('show'),2000);
+}
+function setLive(state){
+  // state: 'online' | 'offline'
+  const dot=document.getElementById('liveDot');
+  const txt=document.getElementById('liveTxt');
+  const dot2=document.getElementById('dot');
+  const st=document.getElementById('st');
+  if(state==='online'){
+    dot.className='live-dot';txt.textContent='Online · Bot Ready';
+    dot2.className='dot';st.textContent='Online';
+  }else{
+    dot.className='live-dot off';txt.textContent='Offline';
+    dot2.className='dot off';st.textContent='Offline';
+  }
+}
+
+async function chk(){
+  try{
+    const r=await fetch('/api/status');
+    const d=await r.json();
+    setLive('online');
+    document.getElementById('sa').textContent=d.activeSessions;
+    document.getElementById('st2').textContent=d.totalPaired;
+    document.getElementById('ac2').textContent=d.activeSessions;
+    document.getElementById('st3').textContent=d.totalPaired;
+
+    const ph=localStorage.getItem('megh_ph');
+    if(ph){
+      const sr=await fetch('/api/session/'+ph);
+      if(sr.ok){
+        const s=await sr.json();
+        if(s.status==='connected'){
+          document.getElementById('fc').style.display='none';
+          document.getElementById('cc').style.display='none';
+          document.getElementById('nc').style.display='block';
+          document.getElementById('ni').innerHTML=
+            '📱 <strong style="color:#fff">'+s.phoneNumber+'</strong>'+
+            (s.displayName?'<br>👤 '+s.displayName:'')+
+            '<br>📊 '+s.commandsExecuted+' commands run'+
+            '<br>⚡ Mode: '+(s.mode||'public');
+        }
+      }
+    }
+  }catch{
+    setLive('offline');
+  }
+}
+
+async function go(){
+  const ph=document.getElementById('ph').value.replace(/\D/g,'');
+  const er=document.getElementById('er');
+  er.classList.remove('show');
+  if(!ph||ph.length<8){
+    er.textContent='❌ Enter a valid phone number with country code';
+    er.classList.add('show');
+    return;
+  }
+  const bt=document.getElementById('bt');
+  bt.disabled=true;
+  bt.innerHTML='<span class="spin"></span> Generating...';
+  try{
+    const r=await fetch('/api/pair',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({phoneNumber:ph})
+    });
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.error||'Failed to generate code');
+    localStorage.setItem('megh_ph',ph);
+    document.getElementById('fc').style.display='none';
+    document.getElementById('cc').style.display='block';
+    document.getElementById('cd').textContent=d.code;
+    showToast('✅ Code generated — copy it now');
+    let t=d.expiresIn;
+    const tm=document.getElementById('tm');
+    const iv=setInterval(()=>{
+      t--;
+      if(t<=0){
+        clearInterval(iv);
+        tm.textContent='Expired — please regenerate';
+        document.getElementById('cc').style.display='none';
+        document.getElementById('fc').style.display='block';
+        bt.disabled=false;
+        bt.innerHTML='🔗 Get Pairing Code';
+      }else{
+        tm.textContent='Expires in '+t+'s';
+      }
+    },1000);
+    const pi=setInterval(async()=>{
+      try{
+        const sr=await fetch('/api/session/'+ph);
+        if(sr.ok){
+          const sd=await sr.json();
+          if(sd.status==='connected'){
+            clearInterval(pi);
+            chk();
+            showToast('🎉 Bot connected!');
+          }
+        }
+      }catch{}
+    },2000);
+  }catch(e){
+    er.textContent='❌ '+e.message;
+    er.classList.add('show');
+    bt.disabled=false;
+    bt.innerHTML='🔗 Get Pairing Code';
+  }
+}
+
+function cp(){
+  const c=document.getElementById('cd').textContent;
+  navigator.clipboard.writeText(c).then(()=>{
+    showToast('📋 Copied: '+c);
+  }).catch(()=>{
+    // Fallback for older browsers
+    const ta=document.createElement('textarea');
+    ta.value=c;document.body.appendChild(ta);
+    ta.select();document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('📋 Copied: '+c);
+  });
+}
+
+async function dc(){
+  const ph=localStorage.getItem('megh_ph');
+  if(!ph)return;
+  if(!confirm('Disconnect your bot session?'))return;
+  try{
+    await fetch('/api/disconnect',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({phoneNumber:ph})
+    });
+  }catch{}
+  localStorage.removeItem('megh_ph');
+  showToast('🔌 Disconnected');
+  setTimeout(()=>location.reload(),1000);
+}
+
+// Auto-format phone input
+document.getElementById('ph').addEventListener('input',function(e){
+  e.target.value=e.target.value.replace(/[^\d]/g,'').slice(0,15);
+});
+
+// Enter key triggers pair
+document.getElementById('ph').addEventListener('keydown',function(e){
+  if(e.key==='Enter'){e.preventDefault();go();}
+});
+
+chk();
+setInterval(chk,5000);
+</script>
+</body>
+</html>

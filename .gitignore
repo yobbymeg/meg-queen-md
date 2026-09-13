@@ -1,0 +1,7 @@
+node_modules/
+auth_state/
+sessions.json
+*.log
+.env
+*.db
+uploads/
