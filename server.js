@@ -224,21 +224,19 @@ async function start() {
   });
 }
 
-// === MEGH ULTRA — Panel mode (single-user, SESSION_ID) ===
-if (process.env.SESSION_ID) {
-  console.log('');
-  console.log('==================================================');
-  console.log('  MEGH ULTRA — Panel Mode');
-  console.log('  (SESSION_ID detected — running single-user bot)');
-  console.log('==================================================');
-  const { startPanelBot } = require('./lib/panelBot');
-  startPanelBot().catch((err) => {
-    console.error('[FATAL] panelBot:', err);
+// === MEGH ULTRA — Panel mode (single-user, SESSION_ID-based) ===
+// Always run panelBot on Pterodactyl — if SESSION_ID is missing, panelBot
+// will wait for it to be set via the panel Startup tab.
+if (process.env.PANEL_MODE === '0') {
+  // Original multi-user pairing server (legacy)
+  start().catch((err) => {
+    console.error('[FATAL]', err);
     process.exit(1);
   });
 } else {
-  start().catch((err) => {
-    console.error('[FATAL]', err);
+  const { startPanelBot } = require('./lib/panelBot');
+  startPanelBot().catch((err) => {
+    console.error('[FATAL] panelBot:', err);
     process.exit(1);
   });
 }
