@@ -224,7 +224,21 @@ async function start() {
   });
 }
 
-start().catch(err => {
-  console.error('[FATAL]', err);
-  process.exit(1);
-});
+// === MEGH ULTRA — Panel mode (single-user, SESSION_ID) ===
+if (process.env.SESSION_ID) {
+  console.log('');
+  console.log('==================================================');
+  console.log('  MEGH ULTRA — Panel Mode');
+  console.log('  (SESSION_ID detected — running single-user bot)');
+  console.log('==================================================');
+  const { startPanelBot } = require('./lib/panelBot');
+  startPanelBot().catch((err) => {
+    console.error('[FATAL] panelBot:', err);
+    process.exit(1);
+  });
+} else {
+  start().catch((err) => {
+    console.error('[FATAL]', err);
+    process.exit(1);
+  });
+}

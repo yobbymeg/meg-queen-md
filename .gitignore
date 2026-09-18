@@ -5,3 +5,4 @@ sessions.json
 .env
 *.db
 uploads/
+package-lock.json
